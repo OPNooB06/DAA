@@ -15,18 +15,18 @@ int max(int arr[], int size)
 }
 void countsort(int arr[], int size, int divisor)
 {
-    int maxi = arr[0] % divisor;
+    int maxi = (arr[0] / divisor)%10;
     for (int i = 0; i < size; i++)
     {
-        if (arr[i] % divisor > maxi)
+        if ((arr[i] / divisor)%10 > maxi)
         {
-            maxi = arr[i] % divisor;
+            maxi = (arr[i] / divisor)%10;
         }
     }
     int count_arr[maxi + 1] = {0};
     for (int i = 0; i < size; i++)
     {
-        count_arr[arr[i] % divisor]++;
+        count_arr[(arr[i] / divisor)%10]++;
     }
     for (int i = 1; i < maxi + 1; i++)
     {
@@ -35,9 +35,9 @@ void countsort(int arr[], int size, int divisor)
     int sorted_arr[size];
     for (int i = size - 1; i >= 0; i--)
     {
-        int index = count_arr[arr[i] % divisor] - 1;
+        int index = count_arr[(arr[i] / divisor)%10] - 1;
         sorted_arr[index] = arr[i];
-        count_arr[arr[i] % divisor]--;
+        count_arr[(arr[i] / divisor)%10]--;
     }
     int getmax = max(arr, size);
     for (int i = 0; i < size; i++)
@@ -54,7 +54,7 @@ void radixsort(int arr[], int size)
         maxi = maxi / 10;
         digit++;
     }
-    for (int i = 1; i <= digit; i++)
+    for (int i = 0; i < digit; i++)
     {
         int divisor = pow(10, i);
         countsort(arr, size, divisor);
